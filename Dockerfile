@@ -1,8 +1,25 @@
 # $ docker pull ruby:3.1-alpine
 FROM ruby:3.1-alpine
 
-# set when needed
 # ENV key=value
 
-# set when needed
+# RUN command
+
 WORKDIR /
+
+# COPY source dest
+
+# USER daemon
+
+# CMD ["executable","param1","param2"]
+
+# EXPOSE <port> [<port>/<protocol>...]
+
+# VOLUME [ "/data" ]
+
+# ARG name
+# ARG =defaultValue
+
+# ADD source dest
+
+# ENTRYPOINT [ "executable" ]
