@@ -1,25 +1,24 @@
-# $ docker pull ruby:3.1-alpine
-FROM ruby:3.1-alpine
+#==================================================
+# Build Layer
+FROM golang:1.12-alpine as build
 
-# ENV key=value
+WORKDIR /go/app
 
-# RUN command
+COPY . .
 
-WORKDIR /
+RUN apk add --no-cache git \
+  && go build -o app
 
-# COPY source dest
+#==================================================
+# Run Layer
+FROM alpine
 
-# USER daemon
+WORKDIR /app
 
-# CMD ["executable","param1","param2"]
+COPY --from=build /go/app/app .
 
-# EXPOSE <port> [<port>/<protocol>...]
+RUN addgroup go \
+  && adduser -D -G go go \
+  && chown -R go:go /app/app
 
-# VOLUME [ "/data" ]
-
-# ARG name
-# ARG =defaultValue
-
-# ADD source dest
-
-# ENTRYPOINT [ "executable" ]
+CMD ["./app"]
