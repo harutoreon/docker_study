@@ -6,8 +6,8 @@ WORKDIR /go/app
 
 COPY . .
 
-RUN apk add --no-cache git \
-  && go build -o app
+RUN apk add --no-cache git && \
+    go build -o app
 
 #==================================================
 # Run Layer
@@ -17,8 +17,8 @@ WORKDIR /app
 
 COPY --from=build /go/app/app .
 
-RUN addgroup go \
-  && adduser -D -G go go \
-  && chown -R go:go /app/app
+RUN addgroup go && \
+    adduser -D -G go go && \
+    chown -R go:go /app/app
 
 CMD ["./app"]
