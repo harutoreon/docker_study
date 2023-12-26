@@ -1,32 +1,17 @@
-# FROM golang:1.9
-
-# RUN mkdir /echo
-
-# COPY main.go /echo
-
-# CMD [ "go", "run", "/echo/main.go" ]
-
 # ==================================================
 # Build Layer
-FROM golang:1.12-alpine as build
+FROM golang:1.9-alpine as build
 
-WORKDIR /go/app
+WORKDIR /echo
 
-COPY . .
-
-RUN apk add --no-cache git && \
-    go build -o app
+COPY main.go .
 
 #==================================================
 # Run Layer
-FROM alpine
+FROM golang:1.9
 
 WORKDIR /app
 
-COPY --from=build /go/app/app .
+COPY --from=build /echo .
 
-RUN addgroup go && \
-    adduser -D -G go go && \
-    chown -R go:go /app/app
-
-CMD ["./app"]
+CMD [ "go", "run", "/app/main.go" ]
