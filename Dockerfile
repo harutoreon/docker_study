@@ -28,4 +28,6 @@ RUN apk add --no-cache -t .build-dependencies \
  && bundle install -j$(getconf _NPROCESSORS_ONLN) --deployment --without test development \
  && apk del --purge .build-dependencies
 
- 
+# アプリケーションコードのコピー
+COPY . /app
+
