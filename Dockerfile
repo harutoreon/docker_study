@@ -1,17 +1,6 @@
-# ==================================================
-# Build Layer
-FROM golang:1.9-alpine as build
-
-WORKDIR /echo
-
-COPY main.go .
-
-#==================================================
-# Run Layer
-FROM golang:1.9
+FROM ruby:2.6.5-alpine
 
 WORKDIR /app
 
-COPY --from=build /echo .
-
-CMD [ "go", "run", "/app/main.go" ]
+ENV RAILS_ENV="production"
+ENV NODE_ENV="production"
