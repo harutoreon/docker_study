@@ -36,3 +36,8 @@ RUN SECRET_KEY_BASE=placeholder bundle exec rails assets:precompile \
  && yarn cache clean \
  && rm -rf node_modules tmp/cache
 
+# ランタイム設定
+ENV RAILS_SERVE_STATIC_FILES="true"
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+EXPOSE 3000
